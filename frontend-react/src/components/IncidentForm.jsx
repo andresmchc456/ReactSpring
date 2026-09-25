@@ -1,0 +1,84 @@
+import React, { useEffect, useState } from "react";
+
+const emptyIncident = {
+  title: "",
+  description: "",
+  category: "Redes",
+  priority: "Media",
+  status: "Abierto",
+  requester: "",
+  technician: ""
+};
+
+export default function IncidentForm({ selected, onSaved, onCancel }) {
+  const [form, setForm] = useState(emptyIncident);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    setForm(selected ? { ...selected } : emptyIncident);
+  }, [selected]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await onSaved(form);
+      setForm(emptyIncident);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <form className="card form" onSubmit={submit}>
+      <h2>{selected ? "Editar incidente" : "Nuevo incidente"}</h2>
+
+      <label>Título
+        <input name="title" value={form.title} onChange={handleChange} required />
+      </label>
+
+      <label>Descripción
+        <textarea name="description" value={form.description} onChange={handleChange} required />
+      </label>
+
+      <div className="grid2">
+        <label>Categoría
+          <select name="category" value={form.category} onChange={handleChange}>
+            <option>Redes</option><option>Hardware</option><option>Software</option><option>Accesos</option>
+          </select>
+        </label>
+
+        <label>Prioridad
+          <select name="priority" value={form.priority} onChange={handleChange}>
+            <option>Baja</option><option>Media</option><option>Alta</option><option>Crítica</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="grid2">
+        <label>Estado
+          <select name="status" value={form.status} onChange={handleChange}>
+            <option>Abierto</option><option>En progreso</option><option>Resuelto</option><option>Cerrado</option>
+          </select>
+        </label>
+
+        <label>Solicitante
+          <input name="requester" value={form.requester} onChange={handleChange} required />
+        </label>
+      </div>
+
+      <label>Técnico asignado
+        <input name="technician" value={form.technician} onChange={handleChange} />
+      </label>
+
+      <div className="actions">
+        <button disabled={saving}>{saving ? "Guardando..." : "Guardar"}</button>
+        {selected && <button type="button" className="secondary" onClick={onCancel}>Cancelar</button>}
+      </div>
+    </form>
+  );
+}
