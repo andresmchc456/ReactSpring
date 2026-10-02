@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class IncidentService {
     private final List<Incident> incidents = new ArrayList<>();
-    private final AtomicLong sequence = new AtomicLong(3);
+    private final AtomicLong sequence = new AtomicLong(4);
 
     public IncidentService() {
         incidents.add(new Incident(1L, "Sin conexión a Internet",
