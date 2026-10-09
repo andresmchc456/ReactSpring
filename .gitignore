@@ -13,6 +13,8 @@ target/
 *.class
 
 # Environment & local configuration
+.venv/
+backend-fastapi/.venv/
 .env
 .env.local
 .env.*.local

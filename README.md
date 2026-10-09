@@ -14,3 +14,7 @@ Orden sugerido:
 	Recuerden que deben realizar primero un npm install y despues un npm run dev
 3. Probar la aplicación.
 4. Entregar el documento de análisis solicitado.
+
+
+comado para corerr servidor en python  python -m uvicorn app.main:app --reload --port 8080
+
