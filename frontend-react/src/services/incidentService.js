@@ -1,3 +1,4 @@
+// actúa como la capa de servicios (Service / API Client Layer) del frontend.
 import axios from "axios";
 
 const api = axios.create({

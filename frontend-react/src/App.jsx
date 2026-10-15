@@ -1,3 +1,5 @@
+// es el componente principal y orquestador (Smart / Container Component) de la aplicación en React.
+//Actúa como el cerebro central que conecta la interfaz de usuario con la capa de servicios
 import React, { useEffect, useState } from "react";
 import IncidentForm from "./components/IncidentForm";
 import IncidentList from "./components/IncidentList";

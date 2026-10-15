@@ -1,3 +1,5 @@
+//componente de presentación y captura de datos (Controlled Form Component).
+//Su función principal es servir como una interfaz interactiva de modo dual para crear nuevos incidentes o editar uno existente.
 import React, { useEffect, useState } from "react";
 
 const emptyIncident = {
