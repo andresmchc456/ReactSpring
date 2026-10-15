@@ -1,3 +1,5 @@
+//Su función principal es gestionar las reglas de negocio y las operaciones 
+//CRUD (crear, consultar, actualizar y eliminar) de los incidentes, aislando al controlador de la forma en que se almacenan o procesan los datos.
 package com.example.incidentes.service;
 
 import com.example.incidentes.model.Incident;
@@ -43,7 +45,8 @@ public class IncidentService {
 
     public Incident update(Long id, Incident data) {
         Incident current = findById(id);
-        if (current == null) return null;
+        if (current == null)
+            return null;
 
         current.setTitle(data.getTitle());
         current.setDescription(data.getDescription());

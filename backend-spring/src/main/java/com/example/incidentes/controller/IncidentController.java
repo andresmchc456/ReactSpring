@@ -1,3 +1,5 @@
+//este codigo es el controlador y se comunica con el frontend
+//Su función principal es exponer los endpoints HTTP de la API REST, recibir las peticiones del cliente (React), validar los datos de entrada y responder con los códigos de estado HTTP adecuados delegando la lógica a la capa de servicio.
 package com.example.incidentes.controller;
 
 import com.example.incidentes.model.Incident;
