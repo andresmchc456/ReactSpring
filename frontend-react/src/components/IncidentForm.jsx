@@ -2,7 +2,7 @@
 //Su función principal es servir como una interfaz interactiva de modo dual para crear nuevos incidentes o editar uno existente.
 import React, { useEffect, useState } from "react";
 
-const emptyIncident = {
+const emptyIncident = { //objeto vacio que se usa para crear nuevos incidentes
   title: "",
   description: "",
   category: "Redes",
@@ -12,19 +12,19 @@ const emptyIncident = {
   technician: ""
 };
 
-export default function IncidentForm({ selected, onSaved, onCancel }) {
-  const [form, setForm] = useState(emptyIncident);
-  const [saving, setSaving] = useState(false);
+export default function IncidentForm({ selected, onSaved, onCancel }) { //seleccionado, onSaved, onCancel son props
+  const [form, setForm] = useState(emptyIncident); //estado del formulario
+  const [saving, setSaving] = useState(false); //estado de guardado
 
-  useEffect(() => {
-    setForm(selected ? { ...selected } : emptyIncident);
+  useEffect(() => { //hook que se ejecuta cuando cambia selected
+    setForm(selected ? { ...selected } : emptyIncident); //actualiza el formulario con el incidente seleccionado
   }, [selected]);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => { //maneja los cambios en el formulario
+    setForm({ ...form, [e.target.name]: e.target.value }); //actualiza el estado del formulario
   };
 
-  const submit = async (e) => {
+  const submit = async (e) => { //maneja el envio del formulario
     e.preventDefault();
     setSaving(true);
     try {
@@ -35,7 +35,7 @@ export default function IncidentForm({ selected, onSaved, onCancel }) {
     }
   };
 
-  return (
+  return (//renderizado del formulario
     <form className="card form" onSubmit={submit}>
       <h2>{selected ? "Editar incidente" : "Nuevo incidente"}</h2>
 
