@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
-public class IncidentService {
-    private final List<Incident> incidents = new ArrayList<>();
-    private final AtomicLong sequence = new AtomicLong(4);
+@Service // Indica que esta clase es un servicio
+public class IncidentService { // clase que representa un servicio
+    private final List<Incident> incidents = new ArrayList<>(); // lista de incidentes
+    private final AtomicLong sequence = new AtomicLong(4); // secuencia de ids
 
-    public IncidentService() {
-        incidents.add(new Incident(1L, "Sin conexión a Internet",
+    public IncidentService() { // constructor que recibe el servicio
+        incidents.add(new Incident(1L, "Sin conexión a Internet", // id del incidente
                 "El equipo no puede acceder a recursos externos.",
                 "Redes", "Alta", "Abierto", "Juan Pérez", "María Gómez"));
         incidents.add(new Incident(2L, "Aplicación no inicia",
@@ -26,39 +26,39 @@ public class IncidentService {
                 "Accesos", "Baja", "Resuelto", "Carlos Díaz", "Andrés López"));
     }
 
-    public List<Incident> findAll() {
+    public List<Incident> findAll() { // devuelve todos los incidentes
         return new ArrayList<>(incidents);
     }
 
-    public Incident findById(Long id) {
+    public Incident findById(Long id) { // devuelve un incidente por id
         return incidents.stream()
                 .filter(i -> i.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
 
-    public Incident create(Incident incident) {
-        incident.setId(sequence.getAndIncrement());
-        incidents.add(incident);
+    public Incident create(Incident incident) { // crea un nuevo incidente
+        incident.setId(sequence.getAndIncrement()); // asigna un id al incidente
+        incidents.add(incident); // agrega el incidente a la lista
         return incident;
     }
 
-    public Incident update(Long id, Incident data) {
-        Incident current = findById(id);
-        if (current == null)
-            return null;
+    public Incident update(Long id, Incident data) { // actualiza un incidente
+        Incident current = findById(id); // busca el incidente por id
+        if (current == null) // si el incidente no existe
+            return null; // devuelve null
 
-        current.setTitle(data.getTitle());
-        current.setDescription(data.getDescription());
-        current.setCategory(data.getCategory());
-        current.setPriority(data.getPriority());
-        current.setStatus(data.getStatus());
-        current.setRequester(data.getRequester());
-        current.setTechnician(data.getTechnician());
-        return current;
+        current.setTitle(data.getTitle()); // actualiza el titulo del incidente
+        current.setDescription(data.getDescription()); // actualiza la descripción del incidente
+        current.setCategory(data.getCategory()); // actualiza la categoría del incidente
+        current.setPriority(data.getPriority()); // actualiza la prioridad del incidente
+        current.setStatus(data.getStatus()); // actualiza el estado del incidente
+        current.setRequester(data.getRequester()); // actualiza el solicitante del incidente
+        current.setTechnician(data.getTechnician()); // actualiza el técnico asignado al incidente
+        return current; // devuelve el incidente actualizado
     }
 
-    public boolean delete(Long id) {
-        return incidents.removeIf(i -> i.getId().equals(id));
+    public boolean delete(Long id) { // elimina un incidente por id
+        return incidents.removeIf(i -> i.getId().equals(id)); // elimina el incidente
     }
 }
