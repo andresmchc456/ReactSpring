@@ -8,11 +8,16 @@ import {
 } from "./services/incidentService";
 
 export default function App() {
+  // Estado que almacena la lista de incidentes
   const [incidents, setIncidents] = useState([]);
+  // Estado que almacena el incidente que está seleccionado para editar
   const [selected, setSelected] = useState(null);
+  // Estado que indica si se está cargando la información
   const [loading, setLoading] = useState(true);
+  // Estado que almacena mensajes de error
   const [error, setError] = useState("");
 
+  // Función que carga los incidentes desde la API
   const load = async () => {
     try {
       setError("");
@@ -28,6 +33,7 @@ export default function App() {
 
   useEffect(() => { load(); }, []);
 
+  // Función que guarda un incidente
   const save = async (incident) => {
     try {
       if (selected) {
@@ -43,6 +49,7 @@ export default function App() {
     }
   };
 
+  // Función que elimina un incidente
   const remove = async (id) => {
     if (!window.confirm("¿Desea eliminar este incidente?")) return;
     try {
@@ -54,7 +61,7 @@ export default function App() {
   };
 
   return (
-    <main className="container">
+    <main className="container"> {/*Renderizado de la aplicacion*/}
       <header>
         <div>
           <p className="eyebrow">Taller Full Stack</p>
@@ -65,13 +72,13 @@ export default function App() {
 
       {error && <div className="alert">{error}</div>}
 
-      <section className="layout">
+      <section className="layout"> {/*layout con el formulario y la lista*/}
         <IncidentForm
           selected={selected}
           onSaved={save}
-          onCancel={() => setSelected(null)}
+          onCancel={() => setSelected(null)} //cancela la edicion
         />
-        <IncidentList
+        <IncidentList  //lista de incidentes
           incidents={incidents}
           loading={loading}
           onEdit={setSelected}
