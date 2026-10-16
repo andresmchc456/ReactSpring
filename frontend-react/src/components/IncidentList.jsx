@@ -1,7 +1,9 @@
 //Su función principal es renderizar la tabla con la lista de incidentes y disparar las acciones de edición y eliminación.
 import React, { useEffect, useState } from "react";
-export default function IncidentList({ incidents, onEdit, onDelete, loading }) {
-  if (loading) return <div className="card">Cargando incidentes...</div>;
+export default function IncidentList({ incidents, onEdit, onDelete, loading }) { //incidents, onEdit, onDelete, loading son props = un molde 
+
+
+  if (loading) return <div className="card">Cargando incidentes...</div>; //si esta cargando muestra un mensaje
 
   return (
     <div className="card">
