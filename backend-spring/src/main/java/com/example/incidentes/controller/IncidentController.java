@@ -11,49 +11,51 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/incidents")
-@CrossOrigin(origins = "*")
+@RestController // indica que esta clase es un controlador REST
+@RequestMapping("/api/incidents") // indica que esta clase es un controlador REST
+@CrossOrigin(origins = "*") // permite que cualquier origen se conecte a esta API
 public class IncidentController {
 
-    private final IncidentService service;
+    private final IncidentService service; // servicio que se encarga de la logica del negocio
 
-    public IncidentController(IncidentService service) {
+    public IncidentController(IncidentService service) { // constructor que recibe el servicio
         this.service = service;
     }
 
     @GetMapping
-    public List<Incident> findAll() {
+    public List<Incident> findAll() { // devuelve todos los incidentes
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Incident> findById(@PathVariable Long id) {
-        Incident incident = service.findById(id);
-        return incident == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(incident);
+    public ResponseEntity<Incident> findById(@PathVariable Long id) { // devuelve un incidente por id
+        Incident incident = service.findById(id); // busca el incidente por id
+        return incident == null // si el incidente no existe
+                ? ResponseEntity.notFound().build() // devuelve 404
+                : ResponseEntity.ok(incident); // devuelve el incidente
     }
 
     @PostMapping
-    public ResponseEntity<Incident> create(@Valid @RequestBody Incident incident) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(incident));
+    public ResponseEntity<Incident> create(@Valid @RequestBody Incident incident) {// crea un nuevo incidente y devuelve
+                                                                                   // 201 si es exitoso
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(incident)); // crea el incidente y devuelve
+                                                                                         // 201
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Incident> update(
-            @PathVariable Long id,
-            @Valid @RequestBody Incident incident) {
-        Incident updated = service.update(id, incident);
-        return updated == null
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(updated);
+    @PutMapping("/{id}") // actualiza un incidente por id
+    public ResponseEntity<Incident> update(// recibe el id del incidente y el incidente a actualizar
+            @PathVariable Long id, // id del incidente
+            @Valid @RequestBody Incident incident) { // incidente a actualizar
+        Incident updated = service.update(id, incident); // actualiza el incidente
+        return updated == null // si el incidente no existe
+                ? ResponseEntity.notFound().build() // devuelve 404
+                : ResponseEntity.ok(updated); // devuelve el incidente actualizado
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return service.delete(id)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.notFound().build();
+    @DeleteMapping("/{id}") // elimina un incidente por id
+    public ResponseEntity<Void> delete(@PathVariable Long id) { // recibe el id del incidente
+        return service.delete(id) // elimina el incidente
+                ? ResponseEntity.noContent().build() // devuelve 204
+                : ResponseEntity.notFound().build(); // devuelve 404
     }
 }
