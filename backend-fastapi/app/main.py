@@ -1,3 +1,5 @@
+#Su función principal es configurar el servidor para comunicarse con React, definir el modelo de datos 
+#y exponer los endpoints de la API REST que gestionan los incidentes.
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
